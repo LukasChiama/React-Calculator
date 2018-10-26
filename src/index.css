@@ -1,40 +1,79 @@
 body {
-  margin: 50px 200px 50px 400px;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  margin: 50px 200px 50px 500px;
+  font-family:Comic Sans MS;
 }
 
 .display-answer {
-  border: 2px solid rgb(156, 150, 150);
+  border: 3px solid rgb(240, 240, 240);
+  border-bottom: 2px solid rgb(31, 30, 30);
+  border-left: 2px solid rgb(31, 30, 30);
   border-collapse: collapse;
-  height: 40px;
-  background-color: #ffffff;
+  padding: 10px;
+  height: 60px;
+  background-color: #131212;
   text-align: right;
+  color: rgb(238, 238, 238);
 }
 
 .display-value {
-  border: 2px solid rgb(156, 150, 150);
+  border: 3px solid rgb(240, 240, 240);
+  border-right: 2px solid rgb(31, 30, 30);
+  border-top: 2px solid rgb(31, 30, 30);
   border-collapse: collapse;
-  height: 40px;
-  background-color: #ffffff;
+  padding: 10px;
+  height: 60px;
+  background-color: #252524;
   text-align: left;
+  color: rgb(240, 240, 240)
 }
 
 table {
-  border: 2px solid black;
+  border: 4px solid rgb(70, 48, 6);
   table-layout: fixed;
-  width: 250px;
-  height: 400px;
-  background-color: rgb(121, 118, 118)
+  width: 300px;
+  height: 500px;
+  background-color: rgb(94, 91, 91)
 }
 
 td.item {
-  border: 1px solid black;
+  border: 2px solid rgb(243, 240, 240);
+  border-top: 2px solid black;
+  border-right: 2px solid black;
   text-align: center;
   width: auto;
-  background-color: #ffffff;
+  background-color: #eef1f1;
   cursor: pointer;
 }
 
+.operator {
+  background-color: #dbd2d2;
+  color: black;
+  border: 2px solid rgb(243, 240, 240);
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  text-align: center;
+  width: auto;
+  cursor: pointer;
+}
+
+.delete {
+  background-color: rgb(226, 87, 87);
+  color: white;
+  border: 2px solid rgb(243, 240, 240);
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  text-align: center;
+  width: auto;
+  cursor: pointer;
+}
+
+.equals {
+  background-color: rgba(235, 188, 35, 0.911);
+  color: rgb(32, 32, 32);
+  border: 2px solid rgb(243, 240, 240);
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  text-align: center;
+  width: auto;
+  cursor: pointer;
+}
