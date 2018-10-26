@@ -9,6 +9,31 @@ class Body extends React.Component {
     operatorDisabled: false,
   }
 
+  handleKeyPress = (e) => {
+    e.preventDefault();
+    const operatorDisabled = this.state.operatorDisabled;
+    this.setState({ answer: '' });
+    const keyboardInput = e.key;
+    const code = e.keyCode;
+    const operators = [106, 107, 109, 111];
+    const numbers = [96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 110]
+    if (keyboardInput === 'Enter') {
+      this.handleClickEquals();
+    } else if (code === 8) {
+      this.handleClickBack();
+    } else if (operators.some(x => x === code) && !operatorDisabled) {
+      this.setState({ operatorDisabled: true});
+      this.state.value.push(keyboardInput);
+      this.setState({ value: this.state.value })
+    } else if (numbers.some(y => y === code)) {
+      this.state.value.push(keyboardInput);
+      this.setState({ value: this.state.value })
+    } else {
+      const invalid = '';
+      this.state.value.push(invalid);
+    }
+  }
+
   handleClick = (e) => {
     this.setState({ answer: '' });
     const userInput = e.currentTarget.dataset.id;
@@ -43,13 +68,13 @@ class Body extends React.Component {
     } else if (operatorIndex === -1) {
       this.setState({ answer: stringInput + " = " + stringInput })
     } else if (operator[0] === "+") {
-      this.setState({ answer: stringInput + " = " + (number1 + number2) })
+      this.setState({ answer: number1 + " + " + number2  + " = " + (number1 + number2) })
     } else if (operator[0] === "-") {
-      this.setState({ answer: stringInput + " = " + (number1 - number2) })
+      this.setState({ answer: number1 + " - " + number2 + " = " + (number1 - number2) })
     } else if (operator[0] === "*") {
-      this.setState({ answer: stringInput + " = " + (number1 * number2) })
+      this.setState({ answer: number1 + " × " + number2 + " = " + (number1 * number2) })
     } else if (operator[0] === "/") {
-      this.setState({ answer: stringInput + " = " + (number1 / number2) })
+      this.setState({ answer: number1 + " ÷ " + number2 + " = " + (number1 / number2) })
     } else {
       this.setState({ answer: '' })
     }
@@ -90,55 +115,58 @@ class Body extends React.Component {
     if (operator === undefined) {
       this.setState({ value: inputArray4 });
     } else {
-     this.setState({ operatorDisabled: false});
+      this.setState({ operatorDisabled: false });
     }
   }
 
   render() {
     return (
-      <table>
-        <thead>
-          <tr></tr>
-        </thead>
-        <tbody>
-          <tr className='row'>
-            <td className='display-value' colSpan='4'>{this.state.value}</td>
-          </tr>
-          <tr>
-            <td className='display-answer' colSpan='4'>{this.state.answer}</td>
-          </tr>
-          <tr className='row'>
-            <td className='operator' onClick={this.handleClickPercent}>%</td>
-            <td className='operator' onClick={this.handleClickSquare}>x²</td>
-            <td className='operator' onClick={this.handleClickRoot}>√x</td>
-            <td className='item, delete' onClick={this.handleClickBack}>⌫</td>
-          </tr>
-          <tr className='row'>
-            <td className='item' data-id='7' onClick={this.handleClick}>7</td>
-            <td className='item' data-id='8' onClick={this.handleClick}>8</td>
-            <td className='item' data-id='9' onClick={this.handleClick}>9</td>
-            <td className='operator' data-id='-' onClick={this.handleClickOperator}>-</td>
-          </tr>
-          <tr className='row'>
-            <td className='item' data-id='4' onClick={this.handleClick}>4</td>
-            <td className='item' data-id='5' onClick={this.handleClick}>5</td>
-            <td className='item' data-id='6' onClick={this.handleClick}>6</td>
-            <td className='operator' data-id='+' onClick={this.handleClickOperator}>+</td>
-          </tr>
-          <tr className='row'>
-            <td className='item' data-id='1' onClick={this.handleClick}>1</td>
-            <td className='item' data-id='2' onClick={this.handleClick}>2</td>
-            <td className='item' data-id='3' onClick={this.handleClick}>3</td>
-            <td className='operator' data-id='*' onClick={this.handleClickOperator}>×</td>
-          </tr>
-          <tr className='row'>
-            <td className='item' data-id='0' onClick={this.handleClick}>0</td>
-            <td className='item' data-id='.' onClick={this.handleClick}>.</td>
-            <td className='operator' data-id='/' onClick={this.handleClickOperator}>÷</td>
-            <td className='equals' data-id='=' onClick={this.handleClickEquals}>=</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <table>
+          <thead>
+            <tr></tr>
+          </thead>
+          <tbody tabIndex="0" onKeyDown={this.handleKeyPress}>
+            <tr className='row'>
+              <td className='display-value' colSpan='4'>{this.state.value}</td>
+            </tr>
+            <tr>
+              <td className='display-answer' colSpan='4'>{this.state.answer}</td>
+            </tr>
+            <tr className='row'>
+              <td className='operator' onClick={this.handleClickPercent}>%</td>
+              <td className='operator' onClick={this.handleClickSquare}>x²</td>
+              <td className='operator' onClick={this.handleClickRoot}>√x</td>
+              <td className='delete' onClick={this.handleClickBack}>⌫</td>
+            </tr>
+            <tr className='row'>
+              <td className='item' data-id='7' onClick={this.handleClick}>7</td>
+              <td className='item' data-id='8' onClick={this.handleClick}>8</td>
+              <td className='item' data-id='9' onClick={this.handleClick}>9</td>
+              <td className='operator' data-id='-' onClick={this.handleClickOperator}>-</td>
+            </tr>
+            <tr className='row'>
+              <td className='item' data-id='4' onClick={this.handleClick}>4</td>
+              <td className='item' data-id='5' onClick={this.handleClick}>5</td>
+              <td className='item' data-id='6' onClick={this.handleClick}>6</td>
+              <td className='operator' data-id='+' onClick={this.handleClickOperator}>+</td>
+            </tr>
+            <tr className='row'>
+              <td className='item' data-id='1' onClick={this.handleClick}>1</td>
+              <td className='item' data-id='2' onClick={this.handleClick}>2</td>
+              <td className='item' data-id='3' onClick={this.handleClick}>3</td>
+              <td className='operator' data-id='*' onClick={this.handleClickOperator}>×</td>
+            </tr>
+            <tr className='row'>
+              <td className='item' data-id='0' onClick={this.handleClick}>0</td>
+              <td className='item' data-id='.' onClick={this.handleClick}>.</td>
+              <td className='operator' data-id='/' onClick={this.handleClickOperator}>÷</td>
+              <td className='equals' data-id='=' onClick={this.handleClickEquals}>=</td>
+            </tr>
+          </tbody>
+        </table>
+        <div ></div>
+      </div>
     )
   }
 }
