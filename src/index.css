@@ -5,6 +5,9 @@ body {
 .page {
   margin: 20px;
   background-image: url(numbers.jpg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .display-answer {
@@ -35,7 +38,6 @@ body {
 
 table {
   border: 4px solid rgb(70, 48, 6);
-  margin: 50px 300px 50px 500px;
   table-layout: fixed;
   width: 350px;
   height: 550px;
