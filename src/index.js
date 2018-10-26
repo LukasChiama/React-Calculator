@@ -165,7 +165,6 @@ class Body extends React.Component {
             </tr>
           </tbody>
         </table>
-        <div ></div>
       </div>
     )
   }
@@ -175,7 +174,7 @@ class Body extends React.Component {
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className='page'>
         <Body />
       </div>
     )

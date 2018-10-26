@@ -1,6 +1,10 @@
 body {
-  margin: 50px 200px 50px 500px;
   font-family:Comic Sans MS;
+}
+
+.page {
+  margin: 20px;
+  background-image: url(numbers.jpg);
 }
 
 .display-answer {
@@ -31,6 +35,7 @@ body {
 
 table {
   border: 4px solid rgb(70, 48, 6);
+  margin: 50px 300px 50px 500px;
   table-layout: fixed;
   width: 350px;
   height: 550px;
@@ -70,8 +75,8 @@ td.item {
 }
 
 .equals {
-  background-color: rgba(235, 188, 35, 0.911);
-  color: rgb(32, 32, 32);
+  background-color: rgba(87, 204, 63, 0.6);
+  color: rgb(226, 221, 221);
   border: 2px solid rgb(243, 240, 240);
   border-top: 2px solid black;
   border-right: 2px solid black;
