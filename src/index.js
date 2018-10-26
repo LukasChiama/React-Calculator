@@ -110,6 +110,7 @@ class Body extends React.Component {
     const inputArray4 = this.state.value;
     const inputString4 = inputArray4.join('')
     const lastDigit = inputArray4.pop();
+    console.log(lastDigit);
     const regex = /[^\d.]/;
     const operator = regex.exec(inputString4);
     if (operator === undefined) {
