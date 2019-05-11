@@ -90,40 +90,41 @@ class Body extends React.Component {
     this.setState({ value: [] })
   }
 
-  handleClickPercent = () => {
+  handleClickMath = (val) => {
     let ans;
     const { value, answer } = this.state;
     if (answer && !answer.includes('error')) {
       ans = answer.slice(answer.indexOf('=') + 1).trim();
     }
     const input = Number(ans) || value.join('');
+    if (val === '%') {
+      return this.handleClickPercent(input);
+    }
+    if (val === '²') {
+      return this.handleClickSquare(input);
+    }
+    if (val === '√') {
+      return this.handleClickRoot(input);
+    }
+  }
+
+  handleClickPercent = (input) => {
     const percentAnswer = input / 100;
     this.setState({ answer: `${input}% = ${percentAnswer}`, value: [] });
   }
 
-  handleClickSquare = () => {
-    let ans;
-    const { value, answer } = this.state;
-    if (answer && !answer.includes('error')) {
-      ans = answer.slice(answer.indexOf('=') + 1).trim();
-    }
-    const input = Number(ans) || value.join('');
+  handleClickSquare = (input) => {
     const squaredAnswer = input ** 2;
     this.setState({ answer: `${input}² = ${squaredAnswer}`, value: [] });
   }
 
-  handleClickRoot = () => {
-    let ans;
-    const { value, answer } = this.state;
-    if (answer && !answer.includes('error')) {
-      ans = answer.slice(answer.indexOf('=') + 1).trim();
-    }
-    const input = Number(ans) || value.join('');
+  handleClickRoot = (input) => {
     const rootAnswer = input ** 0.5;
     this.setState({ answer: `√${input} = ${rootAnswer}`, value: [] });
   }
 
   handleClickBack = () => {
+    this.setState({ answer: '' });
     const { value } = this.state;
     const inputString4 = value.join('')
     value.pop();
@@ -151,9 +152,9 @@ class Body extends React.Component {
               <td className='display-answer' colSpan='4'>{this.state.answer}</td>
             </tr>
             <tr className='row'>
-              <td className='operator' onClick={this.handleClickPercent}>%</td>
-              <td className='operator' onClick={this.handleClickSquare}>x²</td>
-              <td className='operator' onClick={this.handleClickRoot}>√x</td>
+              <td className='operator' onClick={() => this.handleClickMath('%')}>%</td>
+              <td className='operator' onClick={() => this.handleClickMath('²')}>x²</td>
+              <td className='operator' onClick={() => this.handleClickMath('√')}>√x</td>
               <td className='delete' onClick={this.handleClickBack}>⌫</td>
             </tr>
             <tr className='row'>
