@@ -11,7 +11,7 @@ class Body extends React.Component {
 
   handleKeyPress = (e) => {
     e.preventDefault();
-    const { operatorDisabled } = this.state;
+    const { value, operatorDisabled, answer } = this.state;
     this.setState({ answer: '' });
     const keyboardInput = e.key;
     const code = e.keyCode;
@@ -23,38 +23,43 @@ class Body extends React.Component {
       this.handleClickBack();
     } else if (operators.some(x => x === code) && !operatorDisabled) {
       this.setState({ operatorDisabled: true});
-      this.state.value.push(keyboardInput);
-      this.setState({ value: this.state.value })
+      if (answer.length && !answer.includes('error') && !value.length) {
+        const ans = answer.slice(answer.indexOf('=') + 1).trim();
+        value.push(ans);
+      }
+      value.push(keyboardInput);
+      this.setState({ value })
     } else if (numbers.some(y => y === code)) {
-      this.state.value.push(keyboardInput);
-      this.setState({ value: this.state.value })
+      value.push(keyboardInput);
+      this.setState({ value })
     } else {
-      const invalid = '';
-      this.state.value.push(invalid);
+      return;
     }
   }
 
   handleClick = (e) => {
-    this.setState({ answer: '' });
+    const { value } = this.state;
     const userInput = e.currentTarget.dataset.id;
-    this.state.value.push(userInput);
-    this.setState({ value: this.state.value });
+    value.push(userInput);
+    this.setState({ value });
   }
 
   handleClickOperator = (e) => {
-    if (this.state.operatorDisabled === true) {
-      const noInput = '';
-      this.state.value.push(noInput);
-      this.setState({ value: this.state.value });
+    const { answer, value, operatorDisabled } = this.state;
+    if (operatorDisabled) {
+      return;
     } else {
       this.setState({ operatorDisabled: true })
-      const ans = this.state.answer;
-      if (ans !== '') {
-        this.setState({ value: ans})
+      if (answer.length && !answer.includes('error') && !value.length) {
+        const ans = answer.slice(answer.indexOf('=') + 1).trim();
+        value.push(ans);
+      }
+      if (answer !== '') {
+        this.setState({ value: answer})
       }
       const userInput1 = e.currentTarget.dataset.id;
-      this.state.value.push(userInput1);
-      this.setState({ value: this.state.value });
+      value.push(userInput1);
+      this.setState({ value });
     }
   }
 
@@ -86,24 +91,36 @@ class Body extends React.Component {
   }
 
   handleClickPercent = () => {
-    const { value } = this.state;
-    const inputString1 = value.join('');
-    const percentAnswer = inputString1 / 100;
-    this.setState({ answer: percentAnswer, value: [] });
+    let ans;
+    const { value, answer } = this.state;
+    if (answer && !answer.includes('error')) {
+      ans = answer.slice(answer.indexOf('=') + 1).trim();
+    }
+    const input = Number(ans) || value.join('');
+    const percentAnswer = input / 100;
+    this.setState({ answer: `${input}% = ${percentAnswer}`, value: [] });
   }
 
   handleClickSquare = () => {
-    const { value } = this.state;
-    const inputString2 = value.join('');
-    const squareAnswer = Math.pow(inputString2, 2);
-    this.setState({ answer: squareAnswer, value: [] });
+    let ans;
+    const { value, answer } = this.state;
+    if (answer && !answer.includes('error')) {
+      ans = answer.slice(answer.indexOf('=') + 1).trim();
+    }
+    const input = Number(ans) || value.join('');
+    const squaredAnswer = input ** 2;
+    this.setState({ answer: `${input}² = ${squaredAnswer}`, value: [] });
   }
 
   handleClickRoot = () => {
-    const { value } = this.state;
-    const stringInput3 = value.join('');
-    const rootAnswer = Math.pow(stringInput3, 0.5);
-    this.setState({ answer: rootAnswer, value: [] });
+    let ans;
+    const { value, answer } = this.state;
+    if (answer && !answer.includes('error')) {
+      ans = answer.slice(answer.indexOf('=') + 1).trim();
+    }
+    const input = Number(ans) || value.join('');
+    const rootAnswer = input ** 0.5;
+    this.setState({ answer: `√${input} = ${rootAnswer}`, value: [] });
   }
 
   handleClickBack = () => {
