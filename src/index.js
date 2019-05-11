@@ -11,7 +11,7 @@ class Body extends React.Component {
 
   handleKeyPress = (e) => {
     e.preventDefault();
-    const operatorDisabled = this.state.operatorDisabled;
+    const { operatorDisabled } = this.state;
     this.setState({ answer: '' });
     const keyboardInput = e.key;
     const code = e.keyCode;
@@ -48,6 +48,10 @@ class Body extends React.Component {
       this.setState({ value: this.state.value });
     } else {
       this.setState({ operatorDisabled: true })
+      const ans = this.state.answer;
+      if (ans !== '') {
+        this.setState({ value: ans})
+      }
       const userInput1 = e.currentTarget.dataset.id;
       this.state.value.push(userInput1);
       this.setState({ value: this.state.value });
@@ -56,8 +60,8 @@ class Body extends React.Component {
 
   handleClickEquals = () => {
     this.setState({ operatorDisabled: false });
-    const inputArray = this.state.value;
-    const stringInput = inputArray.join('');
+    const { value } = this.state;
+    const stringInput = value.join('');
     const regex = /[^\d.]/;
     const operatorIndex = stringInput.search(regex);
     const operator = regex.exec(stringInput);
@@ -66,15 +70,15 @@ class Body extends React.Component {
     if ((operatorIndex === 0 && operator[0] === "*") || (operatorIndex === 0 && operator[0] === "/") || (operatorIndex === stringInput.length - 1)) {
       this.setState({ answer: "error: incomplete expression" });
     } else if (operatorIndex === -1) {
-      this.setState({ answer: stringInput + " = " + stringInput })
+      this.setState({ answer: `${stringInput} = ${stringInput}` })
     } else if (operator[0] === "+") {
-      this.setState({ answer: number1 + " + " + number2  + " = " + (number1 + number2) })
+      this.setState({ answer: `${number1} + ${number2} = ${(number1 + number2)}` })
     } else if (operator[0] === "-") {
-      this.setState({ answer: number1 + " - " + number2 + " = " + (number1 - number2) })
+      this.setState({ answer: `${number1} - ${number2} = ${(number1 - number2)}` })
     } else if (operator[0] === "*") {
-      this.setState({ answer: number1 + " × " + number2 + " = " + (number1 * number2) })
+      this.setState({ answer: `${number1} × ${number2} = ${(number1 * number2)}` })
     } else if (operator[0] === "/") {
-      this.setState({ answer: number1 + " ÷ " + number2 + " = " + (number1 / number2) })
+      this.setState({ answer: `${number1} ÷ ${number2} = ${(number1 / number2)}` })
     } else {
       this.setState({ answer: '' })
     }
@@ -82,39 +86,34 @@ class Body extends React.Component {
   }
 
   handleClickPercent = () => {
-    const inputArray1 = this.state.value;
-    const inputString1 = inputArray1.join('');
+    const { value } = this.state;
+    const inputString1 = value.join('');
     const percentAnswer = inputString1 / 100;
-    this.setState({ answer: percentAnswer });
-    this.setState({ value: [] })
+    this.setState({ answer: percentAnswer, value: [] });
   }
 
   handleClickSquare = () => {
-    const inputArray2 = this.state.value;
-    const inputString2 = inputArray2.join('');
+    const { value } = this.state;
+    const inputString2 = value.join('');
     const squareAnswer = Math.pow(inputString2, 2);
-    this.setState({ answer: squareAnswer });
-    this.setState({ value: [] })
+    this.setState({ answer: squareAnswer, value: [] });
   }
 
   handleClickRoot = () => {
-    const inputArray3 = this.state.value;
-    const stringInput3 = inputArray3.join('');
+    const { value } = this.state;
+    const stringInput3 = value.join('');
     const rootAnswer = Math.pow(stringInput3, 0.5);
-    this.setState({ answer: rootAnswer });
-    this.setState({ value: [] })
+    this.setState({ answer: rootAnswer, value: [] });
   }
 
   handleClickBack = () => {
-    this.setState({ answer: 0 })
-    const inputArray4 = this.state.value;
-    const inputString4 = inputArray4.join('')
-    const lastDigit = inputArray4.pop();
-    console.log(lastDigit);
+    const { value } = this.state;
+    const inputString4 = value.join('')
+    value.pop();
     const regex = /[^\d.]/;
     const operator = regex.exec(inputString4);
     if (operator === undefined) {
-      this.setState({ value: inputArray4 });
+      this.setState({ value });
     } else {
       this.setState({ operatorDisabled: false });
     }
