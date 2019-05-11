@@ -45,7 +45,7 @@ table {
   border: 4px solid rgb(70, 48, 6);
   table-layout: fixed;
   margin: auto;
-  width: 320px;
+  width: 100%;
   height: -webkit-fill-available;
   background-color: rgb(94, 91, 91);
   overflow-y: hidden;
@@ -92,4 +92,11 @@ td.item {
   text-align: center;
   width: auto;
   cursor: pointer;
+}
+
+@media (min-width: 425px) {
+  table {
+    width: 350px;
+    height: 600px;
+  }
 }
