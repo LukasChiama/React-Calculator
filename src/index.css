@@ -1,13 +1,18 @@
+html {
+  height: 100%;
+}
+
 body {
   font-family:Comic Sans MS;
+  margin: 0px;
+  height: 100%;
+  background: url(numbers.jpg) repeat;
 }
 
 .page {
-  margin: 20px;
-  background-image: url(numbers.jpg);
   display: flex;
   justify-content: center;
-  align-items: center;
+  height: 100%;
 }
 
 .display-answer {
@@ -33,15 +38,17 @@ body {
   text-overflow: ellipsis;
   background-color: #252524;
   text-align: left;
-  color: rgb(240, 240, 240)
+  color: rgb(240, 240, 240);
 }
 
 table {
   border: 4px solid rgb(70, 48, 6);
   table-layout: fixed;
-  width: 350px;
-  height: 550px;
-  background-color: rgb(94, 91, 91)
+  margin: auto;
+  width: 320px;
+  height: -webkit-fill-available;
+  background-color: rgb(94, 91, 91);
+  overflow-y: hidden;
 }
 
 td.item {
