@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/React-Calculator/static/js/runtime~main.4a9b6dfe.js"
   },
   {
-    "revision": "a70cbdbbdc6d675ba3df",
-    "url": "/React-Calculator/static/js/main.a70cbdbb.chunk.js"
+    "revision": "d3f023a9f6f3c1353c26",
+    "url": "/React-Calculator/static/js/main.d3f023a9.chunk.js"
   },
   {
     "revision": "499bf8bcb9159cbc401f",
     "url": "/React-Calculator/static/js/1.499bf8bc.chunk.js"
   },
   {
-    "revision": "a70cbdbbdc6d675ba3df",
+    "revision": "d3f023a9f6f3c1353c26",
     "url": "/React-Calculator/static/css/main.3a55f366.chunk.css"
   },
   {
-    "revision": "2217ddddf93d7ad5671f47a07efa03ac",
+    "revision": "870934816708d37e55cfcca7a101bd24",
     "url": "/React-Calculator/index.html"
   }
 ];
