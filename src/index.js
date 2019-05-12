@@ -39,6 +39,7 @@ class Body extends React.Component {
 
   handleClick = (e) => {
     const { value } = this.state;
+    this.setState({ answer: '' });
     const userInput = e.currentTarget.dataset.id;
     value.push(userInput);
     this.setState({ value });
