@@ -67,16 +67,16 @@ class Body extends React.Component {
   handleClickEquals = () => {
     this.setState({ operatorDisabled: false });
     const { value } = this.state;
-    const stringInput = value.join('');
+    const input = value.join('');
     const regex = /[^\d.]/;
-    const operatorIndex = stringInput.search(regex);
-    const operator = regex.exec(stringInput);
-    const number1 = Number(stringInput.slice(0, operatorIndex));
-    const number2 = Number(stringInput.slice(operatorIndex + 1));
-    if ((operatorIndex === 0 && operator[0] === "*") || (operatorIndex === 0 && operator[0] === "/") || (operatorIndex === stringInput.length - 1)) {
+    const index = input.search(regex);
+    const operator = regex.exec(input);
+    const number1 = Number(input.slice(0, index));
+    const number2 = Number(input.slice(index + 1));
+    if ((index === 0 && operator[0] === "*") || (index === 0 && operator[0] === "/") || (index === input.length - 1)) {
       this.setState({ answer: "error: incomplete expression" });
-    } else if (operatorIndex === -1) {
-      this.setState({ answer: `${stringInput} = ${stringInput}` })
+    } else if (index === -1) {
+      this.setState({ answer: `${input} = ${input}` })
     } else if (operator[0] === "+") {
       this.setState({ answer: `${number1} + ${number2} = ${(number1 + number2)}` })
     } else if (operator[0] === "-") {
